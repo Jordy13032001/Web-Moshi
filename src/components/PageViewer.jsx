@@ -35,6 +35,9 @@ const PageViewer = () => {
       type: 'photo',
       src: foto4,
       caption: 'Ya quiero tener esa carita enfrente mio para poder apreciarla mucho mas. ❤️'
+    },
+    {
+      type: 'outro'
     }
   ];
 
@@ -77,9 +80,23 @@ const PageViewer = () => {
           {currentPageData.type === 'photo' && (
             <div className="polaroid-large">
               <div className="polaroid-large-photo">
-                <img src={currentPageData.src} alt="Recuerdo especial" />
+                <img src={currentPageData.src} alt="Moshi" />
               </div>
               <p className="polaroid-large-caption">{currentPageData.caption}</p>
+            </div>
+          )}
+
+          {currentPageData.type === 'outro' && (
+            <div className="paper-container animate-fade-in" style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '400px', maxWidth: '600px' }}>
+              <h2 style={{ fontFamily: "'Caveat', cursive", fontSize: '4rem', color: '#8A2BE2', marginBottom: '20px', textShadow: '2px 2px 4px rgba(0,0,0,0.1)' }}>
+                Espero te haya gustado ✨
+              </h2>
+              <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.3rem', color: '#555', lineHeight: '1.6' }}>
+                Hice este rincón especial con todo mi cariño para ti. Cada detalle, cada canción y cada foto está aquí para recordarte lo mucho que me importas.
+              </p>
+              <div style={{ marginTop: '30px', fontSize: '2rem' }}>
+                ❤️
+              </div>
             </div>
           )}
         </div>
