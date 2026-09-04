@@ -1,0 +1,171 @@
+.envelope-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(11, 4, 28, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeOutBg 0.8s forwards;
+  animation-delay: 3.5s;
+  backdrop-filter: blur(5px);
+}
+
+.envelope-wrapper {
+  position: relative;
+  width: 420px;
+  height: 280px;
+  animation: zoomOutAndFade 1.2s forwards;
+  animation-delay: 3s;
+  perspective: 1200px; /* Da el efecto 3D al abrir la solapa */
+}
+
+/* Parte trasera del sobre */
+.envelope-back {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #512DA8, #311B92);
+  border-radius: 12px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+  z-index: 1;
+}
+
+/* La carta en sí */
+.envelope-paper {
+  position: absolute;
+  top: 15px; left: 15px;
+  width: 390px; height: 250px;
+  background: #fdfbf7;
+  border-radius: 8px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Caveat', cursive;
+  font-size: 2.5rem;
+  color: #311B92;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+  /* Textura tipo libreta */
+  background-image: 
+    linear-gradient(#fdfbf7 90%, transparent 90%), 
+    linear-gradient(90deg, rgba(138,43,226,0.05) 1px, transparent 1px);
+  background-size: 100% 40px, 40px 100%;
+  
+  /* Sale del sobre */
+  animation: pullOutAndExpand 2.2s forwards;
+  animation-delay: 0.9s;
+}
+
+.paper-heart {
+  font-size: 3rem;
+  animation: heartbeat 1.5s infinite;
+}
+
+/* Solapas usando clip-path para permitir sombras reales en los bordes */
+.envelope-flap-left {
+  position: absolute;
+  top: 0; left: 0;
+  width: 55%; height: 100%;
+  background: linear-gradient(to right, #673AB7, #7E57C2);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  z-index: 3;
+  filter: drop-shadow(5px 0px 5px rgba(0,0,0,0.25));
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.envelope-flap-right {
+  position: absolute;
+  top: 0; right: 0;
+  width: 55%; height: 100%;
+  background: linear-gradient(to left, #673AB7, #7E57C2);
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  z-index: 4;
+  filter: drop-shadow(-5px 0px 5px rgba(0,0,0,0.25));
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.envelope-flap-bottom {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 60%;
+  background: linear-gradient(to top, #512DA8, #673AB7);
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  z-index: 5;
+  filter: drop-shadow(0px -5px 10px rgba(0,0,0,0.3));
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Solapa superior (la que se abre en 3D) */
+.envelope-flap-top {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 65%;
+  background: linear-gradient(to bottom, #7E57C2, #9575CD);
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  z-index: 6;
+  transform-origin: top;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  /* Animación de apertura */
+  animation: openFlap 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Sello de cera en el centro */
+.envelope-seal {
+  position: absolute;
+  top: 64%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65px; height: 65px;
+  background: radial-gradient(circle, #E91E63, #880E4F);
+  border-radius: 50%;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F8BBD0;
+  font-size: 1.8rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.4);
+  border: 2px solid #C2185B;
+  /* Se rompe cuando se abre la solapa */
+  animation: breakSeal 0.6s forwards;
+  animation-delay: 0.1s;
+}
+
+/* Keyframes */
+@keyframes openFlap {
+  0% { transform: rotateX(0deg); z-index: 6; filter: drop-shadow(0px 8px 10px rgba(0,0,0,0.5)); }
+  100% { transform: rotateX(180deg); z-index: 1; filter: drop-shadow(0px -5px 5px rgba(0,0,0,0.2)); }
+}
+
+@keyframes breakSeal {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.3); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2); visibility: hidden; }
+}
+
+@keyframes pullOutAndExpand {
+  0% { transform: translateY(0) scale(1); z-index: 2; }
+  35% { transform: translateY(-180px) scale(1); z-index: 2; }
+  36% { transform: translateY(-180px) scale(1); z-index: 8; } 
+  100% { transform: translateY(-30px) scale(2.2); z-index: 8; opacity: 0; } 
+}
+
+@keyframes zoomOutAndFade {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes fadeOutBg {
+  0% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}

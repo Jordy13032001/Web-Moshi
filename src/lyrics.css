@@ -1,0 +1,93 @@
+.floating-lyrics-container {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 320px;
+  height: 400px; /* Un poco más alto para que quepa más texto */
+  background: transparent; /* Fondo completamente transparente */
+  padding: 20px 10px;
+  z-index: 1000; /* Siempre arriba de todo */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideInLeft 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.floating-lyrics-title {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translate(-100px, -50%); }
+  to { opacity: 1; transform: translate(0, -50%); }
+}
+
+.lyrics-window-scrollable {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-top: 10px;
+  gap: 15px;
+}
+
+/* Ocultar la barra de scroll para que se vea como texto flotando libremente */
+.lyrics-window-scrollable::-webkit-scrollbar {
+  display: none;
+}
+.lyrics-window-scrollable {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.static-lyric-line {
+  text-align: center;
+  font-family: 'Caveat', cursive; /* Estilo romántico y manuscrito */
+  font-size: 1.8rem;
+  font-weight: 800; /* Un poco más grueso (bold) */
+  color: #333333; /* Un gris oscuro/negrito suave como pidió el usuario */
+  line-height: 1.3;
+  margin: 0;
+  /* Sombra blanca fuerte para asegurar que resalte sobre cualquier parte oscura del fondo */
+  text-shadow: 1px 1px 4px rgba(255,255,255,0.9), 0 0 15px rgba(255,255,255,0.9);
+}
+
+.static-lyric-line:empty {
+  height: 15px; /* Space between verses */
+}
+
+.music-wave {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+  height: 15px;
+}
+
+.wave-bar {
+  width: 3px;
+  background-color: var(--secondary);
+  animation: equalize 1s infinite alternate;
+}
+
+.wave-bar:nth-child(1) { animation-delay: 0.1s; }
+.wave-bar:nth-child(2) { animation-delay: 0.4s; }
+.wave-bar:nth-child(3) { animation-delay: 0.2s; }
+.wave-bar:nth-child(4) { animation-delay: 0.5s; }
+
+@keyframes equalize {
+  0% { height: 4px; }
+  100% { height: 15px; }
+}
