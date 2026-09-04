@@ -7,6 +7,7 @@ import foto3 from '../assets/3.jpeg';
 import foto4 from '../assets/4.jpeg';
 // Importa la imagen de fondo con mayor calidad
 import bgImage from '../assets/fondo.jpg';
+import videoFinal from '../assets/video.mp4';
 
 const PageViewer = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -88,15 +89,18 @@ const PageViewer = () => {
 
           {currentPageData.type === 'outro' && (
             <div className="paper-container animate-fade-in" style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '400px', maxWidth: '600px' }}>
-              <h2 style={{ fontFamily: "'Caveat', cursive", fontSize: '4rem', color: '#8A2BE2', marginBottom: '20px', textShadow: '2px 2px 4px rgba(0,0,0,0.1)' }}>
-                Espero te haya gustado ✨
+              <video 
+                src={videoFinal} 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                controls
+                style={{ width: '100%', maxWidth: '280px', borderRadius: '16px', marginBottom: '25px', boxShadow: '0 15px 35px rgba(0,0,0,0.25)' }}
+              />
+              <h2 style={{ fontFamily: "'Caveat', cursive", fontSize: '3.2rem', color: '#8A2BE2', margin: '0', lineHeight: '1.2', textShadow: '1px 1px 3px rgba(0,0,0,0.1)' }}>
+                Por ultimo un beshito para ti ❤️ ✨
               </h2>
-              <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.3rem', color: '#555', lineHeight: '1.6' }}>
-                Hice este rincón especial con todo mi cariño para ti. Cada detalle, cada canción y cada foto está aquí para recordarte lo mucho que me importas.
-              </p>
-              <div style={{ marginTop: '30px', fontSize: '2rem' }}>
-                ❤️
-              </div>
             </div>
           )}
         </div>
